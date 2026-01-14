@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Classificador de Emails</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="header">
+    <img src="/static/autou.png" alt="Logo AutoU">
+</div>
+
+<div class="page">
+
+    <div class="title">
+        <h1>Classificador de emails</h1>
+        <p>Análise automática de mensagens recebidas</p>
+    </div>
+
+   <form method="post" action="/analisar">
+
+    <textarea 
+        name="email_texto" 
+        placeholder="Cole o texto do email aqui."
+        required
+    ></textarea>
+
+    <button type="submit">Analisar email</button>
+</form>
+
+{% if resultado %}
+    <div class="resultado">
+        {{ resultado }}
+    </div>
+{% endif %}
+    </div>
+
+</div>
+
+</body>
+</html>
