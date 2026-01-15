@@ -4,9 +4,11 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from starlette.requests import Request
 from transformers import pipeline
+import os
 
 app = FastAPI()
 
+# ⚠️ MODELO CARREGADO UMA ÚNICA VEZ (ESSENCIAL)
 classifier = pipeline(
     "sentiment-analysis",
     model="distilbert-base-uncased-finetuned-sst-2-english",
@@ -24,6 +26,7 @@ def classificar_email(texto: str) -> str:
         "suporte", "status", "bug", "não funciona",
         "instabilidade", "ajuda", "urgente"
     ]
+
     for palavra in palavras_produtivas:
         if palavra in texto_lower:
             return "Produtivo"
@@ -31,9 +34,10 @@ def classificar_email(texto: str) -> str:
     if len(texto.split()) < 5:
         return "Improdutivo"
 
-    resultado = classifier(texto)[0]["label"]
+    resultado = classifier(texto, truncation=True)[0]["label"]
+
     if resultado == "NEGATIVE":
-        return "Improdutivo"
+        return "Produtivo"
 
     return "Improdutivo"
 
@@ -47,7 +51,7 @@ def gerar_resposta(categoria: str) -> str:
         )
     else:
         return (
-           "Olá!\n\n"
+            "Olá!\n\n"
             "Agradecemos sua mensagem!\n"
             "Ficamos felizes pelo seu contato e esperamos que você tenha um ótimo dia.\n\n"
             "Atenciosamente,\n"
@@ -56,7 +60,10 @@ def gerar_resposta(categoria: str) -> str:
 
 @app.get("/", response_class=HTMLResponse)
 def home(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request, "resultado": ""})
+    return templates.TemplateResponse(
+        "index.html",
+        {"request": request, "resultado": ""}
+    )
 
 @app.post("/analisar", response_class=HTMLResponse)
 def analisar_email(request: Request, email_texto: str = Form(...)):
@@ -67,8 +74,5 @@ def analisar_email(request: Request, email_texto: str = Form(...)):
 
     return templates.TemplateResponse(
         "index.html",
-        {
-            "request": request,
-            "resultado": resultado
-        }
+        {"request": request, "resultado": resultado}
     )
