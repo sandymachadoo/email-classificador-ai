@@ -9,7 +9,8 @@ app = FastAPI()
 
 classifier = pipeline(
     "sentiment-analysis",
-    model="distilbert-base-uncased-finetuned-sst-2-english"
+    model="distilbert-base-uncased-finetuned-sst-2-english",
+    device=-1
 )
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
