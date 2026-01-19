@@ -7,16 +7,6 @@ Aplicação web que utiliza Inteligência Artificial para classificar emails e s
 
 ---
 
-## Como usar
-
-1. Acesse a aplicação pelo link do deploy.  
-2. Cole o texto do email na caixa de texto.  
-3. Clique em **Analisar email**.  
-4. O resultado aparecerá logo abaixo, mostrando:
-   - A categoria do email (Produtivo ou Improdutivo)  
-   - Uma sugestão de resposta automática  
----
-
 ## Tecnologias
 
 - Python + FastAPI (backend)  
