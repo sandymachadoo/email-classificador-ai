@@ -4,6 +4,9 @@ Aplicação web que utiliza Inteligência Artificial para classificar emails e s
 
 - **Produtivo:** emails que precisam de ação ou resposta.  
 - **Improdutivo:** emails que não precisam de resposta imediata.
+<p align="center">
+  <img src="https://raw.githubusercontent.com/sandymachadoo/email-classificador-ai/main/classificador.png" alt="Tela classificador" />
+</p>
 
 ---
 
