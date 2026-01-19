@@ -8,7 +8,6 @@ import os
 
 app = FastAPI()
 
-# ⚠️ MODELO CARREGADO UMA ÚNICA VEZ (ESSENCIAL)
 classifier = pipeline(
     "sentiment-analysis",
     model="distilbert-base-uncased-finetuned-sst-2-english",
